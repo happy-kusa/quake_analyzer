@@ -2,12 +2,35 @@
 
 import time
 import datetime
+import requests
 
-INTERVAL_MINUTES = 3
+INTERVAL_MINUTES = 1
+
+def task():
+
+    url = (
+        "https://data.moa.gov.tw/api/v1/AgriProductsTransType/"
+        "?Start_time=114.07.01"
+        "&End_time=114.07.10"
+        "&CropCode=FJ3"
+        "&CropName"
+        "&MarketName=台北一"
+    )
+
+    headers = {
+        'accept': 'application/json',
+        'Cookie': 'ASP.NET_SessionId=ennenv3x13k01ulh45dskged'
+    }
+    payload = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    return response.text
 
 def do_periodic_task():
     now = datetime.datetime.now()
-    print(f"[{now}] 任務觸發中...")
+    print(f"[{now}] {task()}")
+
 
 
 def wait_until_next_interval(interval_minutes):
