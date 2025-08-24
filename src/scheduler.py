@@ -1,9 +1,9 @@
 import time
 import datetime
-import sys
-from src.config import *
 from src.fetcher import fetch_today_data
 from src.repository import save_products
+
+INTERVAL_MINUTES = 1
 
 def wait_until_next_interval(interval_minutes: int):
     now = datetime.datetime.now()

@@ -1,7 +1,10 @@
 import requests
 import datetime
-from src.config import BASE_URL, DEFAULT_CROP_CODE, DEFAULT_MARKET_NAME
 from src.models import AgriProduct
+
+BASE_URL = "https://data.moa.gov.tw/api/v1/AgriProductsTransType/"
+DEFAULT_CROP_CODE = "FJ3"
+DEFAULT_MARKET_NAME = "台北一"
 
 def build_today_url():
     now = datetime.datetime.now()
