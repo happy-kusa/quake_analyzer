@@ -11,6 +11,7 @@ VERSION = "0.0.1"
 
 def cli_handle():
     parser = argparse.ArgumentParser()
+    parser.add_argument("R", "--run",     type=int, default=7, help="執行爬蟲")
     parser.add_argument("D", "--days",    type=int, default=7, help="指定顯示天數")
     parser.add_argument("S", "--show",    action="store_true", help="顯示最近 N 天資料")
     parser.add_argument("V", "--version", action="store_true", help="顯示版本")
