@@ -11,9 +11,9 @@ VERSION = "0.0.1"
 
 def cli_handle():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--show", action="store_true", help="顯示最近 N 天資料並退出")
-    parser.add_argument("--days", type=int, default=7, help="指定顯示天數")
-    parser.add_argument("--version", action="store_true", help="顯示版本")
+    parser.add_argument("D", "--days",    type=int, default=7, help="指定顯示天數")
+    parser.add_argument("S", "--show",    action="store_true", help="顯示最近 N 天資料")
+    parser.add_argument("V", "--version", action="store_true", help="顯示版本")
     args = parser.parse_args()
 
     match args:
