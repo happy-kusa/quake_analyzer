@@ -2,18 +2,33 @@
 
 import sys
 import signal
-from src.cli import run_cli
+import argparse
 from src.database import init_db
 from src.scheduler import run_forever
+from src.repository import fetch_recent
 
-def handle_sigint(sig, frame):
+def cli_handle():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--show", action="store_true", help="顯示最近 7 天資料並退出")
+    parser.add_argument("--days", type=int, default=7, help="指定顯示天數")
+    args = parser.parse_args()
+
+    if args.show:
+        rows = fetch_recent(args.days)
+        print(f"最近 {args.days} 天資料：")
+        for r in rows:
+            print(f"日期 {r[0]} | {r[1]} @ {r[2]} | 平均價 {r[3]} | 交易量 {r[4]}")
+        return True
+    return False
+
+def sigint_handle(sig, frame):
     print("\n收到 Ctrl+C，程式準備結束...")
     sys.exit(0)
 
 def main():
-    signal.signal(signal.SIGINT, handle_sigint)
+    signal.signal(signal.SIGINT, sigint_handle)
     init_db()
-    if not run_cli():
+    if not cli_handle():
         run_forever()
 
 if __name__ == "__main__":
